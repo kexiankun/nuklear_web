@@ -1,0 +1,8 @@
+[
+{
+  "directory": "C:/Users/jnck/Desktop/nuklear_web/build",
+  "command": "E:\\msys64\\mingw64\\bin\\cc.exe  -pedantic -O2 -DNKCD=NKC_GLFW -g -std=gnu99 -o CMakeFiles\\nuklear_web.exe.dir\\main.c.obj -c C:\\Users\\jnck\\Desktop\\nuklear_web\\main.c",
+  "file": "C:\\Users\\jnck\\Desktop\\nuklear_web\\main.c",
+  "output": "CMakeFiles\\nuklear_web.exe.dir\\main.c.obj"
+}
+]

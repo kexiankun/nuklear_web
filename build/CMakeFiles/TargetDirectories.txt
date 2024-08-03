@@ -1,0 +1,4 @@
+C:/Users/jnck/Desktop/nuklear_web/build/CMakeFiles/nuklear_web.exe.dir
+C:/Users/jnck/Desktop/nuklear_web/build/CMakeFiles/web.dir
+C:/Users/jnck/Desktop/nuklear_web/build/CMakeFiles/edit_cache.dir
+C:/Users/jnck/Desktop/nuklear_web/build/CMakeFiles/rebuild_cache.dir
