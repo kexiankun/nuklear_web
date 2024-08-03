@@ -1,0 +1,84 @@
+提示：
+
+Emscripten 是一个工具链，能够将 C 和 C++ 代码编译成 WebAssembly (Wasm) 或 asm.js，
+从而使这些代码可以在网页浏览器中运行。它非常适合将已有的 C/C++ 项目移植到 Web 平台上。
+简单来说，它能让你把用 C/C++ 写的程序转换成浏览器能理解和执行的格式。
+
+
+先安装Python 3.9.2或更高版本
+
+pacman -S python
+
+
+1. 更新MSYS2和安装基础工具
+确保你的MSYS2环境是最新的，并安装了必要的工具和库：
+
+pacman -Syu
+pacman -S base-devel git
+
+2. 安装Emscripten SDK
+虽然Emscripten的官方安装工具通常是通过emsdk，你也可以尝试使用MSYS2的pacman来安装Emscripten。如果MSYS2仓库中没有Emscripten，你可以手动下载并安装：
+
+下载Emscripten SDK:
+
+使用MSYS2终端，克隆Emscripten SDK仓库：
+
+git clone https://github.com/emscripten-core/emsdk.git
+cd emsdk
+
+安装和激活Emscripten:
+
+使用emsdk工具来安装Emscripten和工具链：
+
+./emsdk install latest
+./emsdk activate latest
+如果下载工具失败，可以手动下载需要的工具并配置路径。
+
+设置环境变量:
+
+激活Emscripten环境，使得MSYS2终端可以找到emcc和其他Emscripten工具：
+
+
+source ./emsdk_env.sh
+可以将这条命令添加到你的.bashrc文件中，以便每次打开终端时自动加载Emscripten环境。
+
+3. 确认安装
+在MSYS2终端中，运行以下命令以确认Emscripten是否正确安装：
+
+
+emcc --version
+4. 配置VS Code
+确保VS Code能够正确找到Emscripten工具：
+
+打开VS Code设置 (settings.json):
+
+json
+复制代码
+{
+    "terminal.integrated.env.windows": {
+        "PATH": "C:\\path\\to\\emsdk;C:\\path\\to\\emsdk\\upstream\\emscripten;${env:PATH}"
+    }
+}
+替换C:\\path\\to\\emsdk为你实际的Emscripten安装路径。
+
+更新tasks.json:
+
+确保tasks.json文件中的command字段指向emcc：
+
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "build",
+            "type": "shell",
+            "command": "emcc",
+            "args": ["main.c", "-DNKCD=NKC_GLFW", "-o", "index.html", "-s", "USE_GLFW=3", "-Os", "--preload-file", "data"],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": ["$gcc"],
+            "detail": "Build using Emscripten"
+        }
+    ]
+}

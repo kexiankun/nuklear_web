@@ -1,0 +1,103 @@
+
+1. 配置tasks.json
+tasks.json用于定义VS Code中的编译任务。确保这个文件包含正确的编译命令：
+
+打开VS Code。
+打开工作区文件夹。
+创建或编辑tasks.json：
+按下 Ctrl+Shift+P，输入 Tasks: Configure Task，选择 Create tasks.json file from template，然后选择 Others。
+编辑生成的 tasks.json 文件以包括 emcc 编译命令：
+
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "build",
+            "type": "shell",
+            "command": "emcc",
+            "args": [
+                "main.c",
+                "-DNKCD=NKC_GLFW",
+                "-o",
+                "index.html",
+                "-s",
+                "USE_GLFW=3",
+                "-Os",
+                "--preload-file",
+                "data"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": ["$gcc"],
+            "detail": "Build using Emscripten"
+        }
+    ]
+}
+2. 配置launch.json
+launch.json用于配置调试设置：
+
+创建或编辑launch.json：
+按下 Ctrl+Shift+P，输入 Debug: Open launch.json，选择 C++ (GDB/LLDB)。
+
+编辑 launch.json 文件以包括 Emscripten 的调试设置：
+
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Emscripten Debug",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/path/to/your/executable",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ],
+            "preLaunchTask": "build",
+            "miDebuggerPath": "E:/msys64/home/jnck/emsdk/upstream/emscripten/emcc",
+            "logging": {
+                "trace": true,
+                "traceResponse": true,
+                "engineLogging": true,
+                "programOutput": true,
+                "exceptions": true
+            }
+        }
+    ]
+}
+请根据你的实际情况调整 program 和 miDebuggerPath 的路径。
+
+3. 配置终端
+确保 VS Code 使用 MSYS2 的终端，并且包含 Emscripten 和 Python 的路径：
+
+打开 VS Code 设置 (settings.json)：
+
+按下 Ctrl+,，然后点击右上角的文件图标来编辑 settings.json。
+添加或更新以下配置：
+
+{
+    "terminal.integrated.shell.windows": "C:\\msys64\\usr\\bin\\bash.exe",
+    "terminal.integrated.env.windows": {
+        "PATH": "E:/msys64/home/jnck/emsdk;E:/msys64/home/jnck/emsdk/upstream/emscripten;E:/msys64/home/jnck/emsdk/node/18.20.3_64bit/bin;E:/msys64/mingw64/bin;E:/msys64/usr/local/bin;E:/msys64/usr/bin;${env:PATH}"
+    }
+}
+重启 VS Code，使配置生效。
+
+测试配置
+构建项目:
+
+按下 Ctrl+Shift+B，选择 build 任务来编译你的项目。
+调试项目:
+
+按下 F5，启动调试。

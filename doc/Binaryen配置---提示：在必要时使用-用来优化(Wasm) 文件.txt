@@ -1,0 +1,114 @@
+Binaryen 是一个优化和处理 WebAssembly (Wasm) 的工具链，旨在提高 WebAssembly 代码的性能和效率。
+它提供了一系列工具和库，帮助开发者生成、优化和调试 WebAssembly 代码。
+
+以下是 Binaryen 的一些主要功能和特点：
+
+优化器：Binaryen 提供了各种优化功能，可以在 WebAssembly 代码生成后对其进行优化。
+
+例如，
+
+代码大小优化、速度优化、无用代码消除等。
+
+WebAssembly IR (中间表示)：Binaryen 使用一种高层次的中间表示（IR），使得编写和操作 WebAssembly 代码更加容易。
+
+IR 可以被转换成 WebAssembly 代码，反之亦然。
+
+调试工具：Binaryen 提供了一些工具，用于调试和分析 WebAssembly 代码。
+
+例如，可以生成代码的文本表示，方便阅读和调试。
+
+与 Emscripten 集成：Binaryen 与 Emscripten 集成紧密，Emscripten 使用 Binaryen 进行代码优化和生成，从而提高生成的 WebAssembly 代码的性能。
+
+生成和解析 WebAssembly：Binaryen 提供了生成和解析 WebAssembly 的 API，可以将 WebAssembly 二进制代码解析为 IR，或者将 IR 生成 WebAssembly 二进制代码。
+
+跨平台支持：Binaryen 可以在多种操作系统和平台上运行，包括 Windows、macOS 和 Linux。
+
+安装 Binaryen
+安装 Binaryen 有多种方式，你可以选择适合自己的方法。以下是一些常见的安装方法：
+
+使用 Emscripten SDK (emsdk)
+如果你已经安装了 Emscripten SDK，可以通过以下命令安装 Binaryen：
+
+emsdk install latest
+emsdk activate latest
+这将安装最新版本的 Emscripten 和 Binaryen。
+
+从源码构建
+你也可以从源码构建 Binaryen。首先，克隆 Binaryen 的 GitHub 仓库：
+
+查看是否安装了emsdk
+
+cd emsdk
+git clone http://github.com/WebAssembly/binaryen.git
+cd binaryen
+然后，使用 CMake 构建 Binaryen：
+
+
+cmake . && make
+构建完成后，生成的二进制文件将位于 bin 目录中。
+
+使用 Binaryen
+你可以使用 Binaryen 提供的命令行工具对 WebAssembly 代码进行优化和处理。例如，使用 wasm-opt 工具优化 WebAssembly 文件：
+
+wasm-opt input.wasm -o output.wasm -O3
+
+以上命令将对 input.wasm 文件进行优化，并将结果保存到 output.wasm 文件中，-O3 表示使用最高级别的优化。
+
+Binaryen 是一个强大且灵活的工具，能够显著提升 WebAssembly 应用程序的性能和效率。
+通过与 Emscripten 集成，Binaryen 为开发者提供了一个完整的工具链，方便将 C/C++ 代码编译、优化和运行在 Web 平台上。
+
+
+配置VS CODE文件
+
+要在 Visual Studio Code (VS Code) 中配置 wasm-opt 命令以便优化 WebAssembly 文件，你可以按照以下步骤进行操作：
+
+步骤 1：安装 VS Code 和必要的扩展
+确保你已经安装了 VS Code。
+安装以下 VS Code 扩展：
+C/C++：用于处理 C/C++ 文件。
+Code Runner：用于运行代码片段。
+步骤 2：配置任务以运行 wasm-opt
+在 VS Code 中，你可以创建一个任务来运行 wasm-opt 命令。这可以通过 tasks.json 文件完成。
+
+打开你的项目文件夹。
+在 VS Code 中，按下 Ctrl+Shift+P (Windows) 或 Cmd+Shift+P (macOS)，然后输入 Tasks: Configure Task 并选择它。
+选择 Create tasks.json file from template，然后选择 Others。
+这将会在 .vscode 目录中创建一个 tasks.json 文件。编辑此文件以配置 wasm-opt 任务：
+
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Optimize WebAssembly",
+            "type": "shell",
+            "command": "wasm-opt",
+            "args": [
+                "input.wasm",
+                "-o",
+                "output.wasm",
+                "-O3"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            },
+            "problemMatcher": []
+        }
+    ]
+}
+步骤 3：运行任务
+
+打开终端，确保 wasm-opt 可执行文件在你的 PATH 中。如果不是，可以使用绝对路径或者设置 PATH 环境变量。
+按下 Ctrl+Shift+B (Windows) 或 Cmd+Shift+B (macOS) 来运行 Optimize WebAssembly 任务。
+步骤 4：检查输出
+任务完成后，你可以在项目目录中找到 output.wasm 文件，这就是优化后的 WebAssembly 文件。
+
+通过这种方式，你可以轻松地在 VS Code 中使用 wasm-opt 命令来优化 WebAssembly 文件。
+
+你可以根据需要调整 tasks.json 文件中的配置，例如修改输入和输出文件名或优化级别。
