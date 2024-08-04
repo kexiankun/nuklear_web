@@ -1,69 +1,68 @@
-ÌáÊ¾£º
+æç¤ºï¼š
 
-Emscripten ÊÇÒ»¸ö¹¤¾ßÁ´£¬ÄÜ¹»½« C ºÍ C++ ´úÂë±àÒë³É WebAssembly (Wasm) »ò asm.js£¬
-´Ó¶øÊ¹ÕâĞ©´úÂë¿ÉÒÔÔÚÍøÒ³ä¯ÀÀÆ÷ÖĞÔËĞĞ¡£Ëü·Ç³£ÊÊºÏ½«ÒÑÓĞµÄ C/C++ ÏîÄ¿ÒÆÖ²µ½ Web Æ½Ì¨ÉÏ¡£
-¼òµ¥À´Ëµ£¬ËüÄÜÈÃÄã°ÑÓÃ C/C++ Ğ´µÄ³ÌĞò×ª»»³Éä¯ÀÀÆ÷ÄÜÀí½âºÍÖ´ĞĞµÄ¸ñÊ½¡£
+Emscripten æ˜¯ä¸€ä¸ªå·¥å…·é“¾ï¼Œèƒ½å¤Ÿå°† C å’Œ C++ ä»£ç ç¼–è¯‘æˆ WebAssembly (Wasm) æˆ– asm.jsï¼Œ
+ä»è€Œä½¿è¿™äº›ä»£ç å¯ä»¥åœ¨ç½‘é¡µæµè§ˆå™¨ä¸­è¿è¡Œã€‚å®ƒéå¸¸é€‚åˆå°†å·²æœ‰çš„ C/C++ é¡¹ç›®ç§»æ¤åˆ° Web å¹³å°ä¸Šã€‚
+ç®€å•æ¥è¯´ï¼Œå®ƒèƒ½è®©ä½ æŠŠç”¨ C/C++ å†™çš„ç¨‹åºè½¬æ¢æˆæµè§ˆå™¨èƒ½ç†è§£å’Œæ‰§è¡Œçš„æ ¼å¼ã€‚
 
 
-ÏÈ°²×°Python 3.9.2»ò¸ü¸ß°æ±¾
+å…ˆå®‰è£…Python 3.9.2æˆ–æ›´é«˜ç‰ˆæœ¬
 
 pacman -S python
 
 
-1. ¸üĞÂMSYS2ºÍ°²×°»ù´¡¹¤¾ß
-È·±£ÄãµÄMSYS2»·¾³ÊÇ×îĞÂµÄ£¬²¢°²×°ÁË±ØÒªµÄ¹¤¾ßºÍ¿â£º
+1. æ›´æ–°MSYS2å’Œå®‰è£…åŸºç¡€å·¥å…·
+ç¡®ä¿ä½ çš„MSYS2ç¯å¢ƒæ˜¯æœ€æ–°çš„ï¼Œå¹¶å®‰è£…äº†å¿…è¦çš„å·¥å…·å’Œåº“ï¼š
 
 pacman -Syu
 pacman -S base-devel git
 
-2. °²×°Emscripten SDK
-ËäÈ»EmscriptenµÄ¹Ù·½°²×°¹¤¾ßÍ¨³£ÊÇÍ¨¹ıemsdk£¬ÄãÒ²¿ÉÒÔ³¢ÊÔÊ¹ÓÃMSYS2µÄpacmanÀ´°²×°Emscripten¡£Èç¹ûMSYS2²Ö¿âÖĞÃ»ÓĞEmscripten£¬Äã¿ÉÒÔÊÖ¶¯ÏÂÔØ²¢°²×°£º
+2. å®‰è£…Emscripten SDK
+è™½ç„¶Emscriptençš„å®˜æ–¹å®‰è£…å·¥å…·é€šå¸¸æ˜¯é€šè¿‡emsdkï¼Œä½ ä¹Ÿå¯ä»¥å°è¯•ä½¿ç”¨MSYS2çš„pacmanæ¥å®‰è£…Emscriptenã€‚å¦‚æœMSYS2ä»“åº“ä¸­æ²¡æœ‰Emscriptenï¼Œä½ å¯ä»¥æ‰‹åŠ¨ä¸‹è½½å¹¶å®‰è£…ï¼š
 
-ÏÂÔØEmscripten SDK:
+ä¸‹è½½Emscripten SDK:
 
-Ê¹ÓÃMSYS2ÖÕ¶Ë£¬¿ËÂ¡Emscripten SDK²Ö¿â£º
+ä½¿ç”¨MSYS2ç»ˆç«¯ï¼Œå…‹éš†Emscripten SDKä»“åº“ï¼š
 
 git clone https://github.com/emscripten-core/emsdk.git
 cd emsdk
 
-°²×°ºÍ¼¤»îEmscripten:
+å®‰è£…å’Œæ¿€æ´»Emscripten:
 
-Ê¹ÓÃemsdk¹¤¾ßÀ´°²×°EmscriptenºÍ¹¤¾ßÁ´£º
+ä½¿ç”¨emsdkå·¥å…·æ¥å®‰è£…Emscriptenå’Œå·¥å…·é“¾ï¼š
 
 ./emsdk install latest
 ./emsdk activate latest
-Èç¹ûÏÂÔØ¹¤¾ßÊ§°Ü£¬¿ÉÒÔÊÖ¶¯ÏÂÔØĞèÒªµÄ¹¤¾ß²¢ÅäÖÃÂ·¾¶¡£
+å¦‚æœä¸‹è½½å·¥å…·å¤±è´¥ï¼Œå¯ä»¥æ‰‹åŠ¨ä¸‹è½½éœ€è¦çš„å·¥å…·å¹¶é…ç½®è·¯å¾„ã€‚
 
-ÉèÖÃ»·¾³±äÁ¿:
+è®¾ç½®ç¯å¢ƒå˜é‡:
 
-¼¤»îEmscripten»·¾³£¬Ê¹µÃMSYS2ÖÕ¶Ë¿ÉÒÔÕÒµ½emccºÍÆäËûEmscripten¹¤¾ß£º
+æ¿€æ´»Emscriptenç¯å¢ƒï¼Œä½¿å¾—MSYS2ç»ˆç«¯å¯ä»¥æ‰¾åˆ°emccå’Œå…¶ä»–Emscriptenå·¥å…·ï¼š
 
 
 source ./emsdk_env.sh
-¿ÉÒÔ½«ÕâÌõÃüÁîÌí¼Óµ½ÄãµÄ.bashrcÎÄ¼şÖĞ£¬ÒÔ±ãÃ¿´Î´ò¿ªÖÕ¶ËÊ±×Ô¶¯¼ÓÔØEmscripten»·¾³¡£
+å¯ä»¥å°†è¿™æ¡å‘½ä»¤æ·»åŠ åˆ°ä½ çš„.bashrcæ–‡ä»¶ä¸­ï¼Œä»¥ä¾¿æ¯æ¬¡æ‰“å¼€ç»ˆç«¯æ—¶è‡ªåŠ¨åŠ è½½Emscriptenç¯å¢ƒã€‚
 
-3. È·ÈÏ°²×°
-ÔÚMSYS2ÖÕ¶ËÖĞ£¬ÔËĞĞÒÔÏÂÃüÁîÒÔÈ·ÈÏEmscriptenÊÇ·ñÕıÈ·°²×°£º
+3. ç¡®è®¤å®‰è£…
+åœ¨MSYS2ç»ˆç«¯ä¸­ï¼Œè¿è¡Œä»¥ä¸‹å‘½ä»¤ä»¥ç¡®è®¤Emscriptenæ˜¯å¦æ­£ç¡®å®‰è£…ï¼š
 
 
 emcc --version
-4. ÅäÖÃVS Code
-È·±£VS CodeÄÜ¹»ÕıÈ·ÕÒµ½Emscripten¹¤¾ß£º
+4. é…ç½®VS Code
+ç¡®ä¿VS Codeèƒ½å¤Ÿæ­£ç¡®æ‰¾åˆ°Emscriptenå·¥å…·ï¼š
 
-´ò¿ªVS CodeÉèÖÃ (settings.json):
+æ‰“å¼€VS Codeè®¾ç½® (settings.json):
 
-json
-¸´ÖÆ´úÂë
+
 {
     "terminal.integrated.env.windows": {
         "PATH": "C:\\path\\to\\emsdk;C:\\path\\to\\emsdk\\upstream\\emscripten;${env:PATH}"
     }
 }
-Ìæ»»C:\\path\\to\\emsdkÎªÄãÊµ¼ÊµÄEmscripten°²×°Â·¾¶¡£
+æ›¿æ¢C:\\path\\to\\emsdkä¸ºä½ å®é™…çš„Emscriptenå®‰è£…è·¯å¾„ã€‚
 
-¸üĞÂtasks.json:
+æ›´æ–°tasks.json:
 
-È·±£tasks.jsonÎÄ¼şÖĞµÄcommand×Ö¶ÎÖ¸Ïòemcc£º
+ç¡®ä¿tasks.jsonæ–‡ä»¶ä¸­çš„commandå­—æ®µæŒ‡å‘emccï¼š
 
 {
     "version": "2.0.0",
